@@ -1,4 +1,4 @@
-# 코디세이 1-1 개발 워크스테이션 구축
+# 코디세이 1-1 : 개발 워크스테이션 구축
 
 ## 미션 목표 요약
 - 터미널(CLI)로 디렉토리/파일/권한을 다뤄본다.
@@ -23,3 +23,32 @@
 - Terminal: VSCode Powershell
 - Docker: 
 - Git: version 2.56.0.windows.4
+### 검사 명령어
+```powershell
+systeminfo
+호스트 이름:             GNIA-C202-F01
+OS 이름:                 Microsoft Windows 11 Pro
+OS 버전:                 10.0.26300 N/A 빌드 26300
+...이하생략
+
+git --version
+git version 2.56.0.windows.4
+```
+
+## 터미널 로그
+```powershell
+# 현재 위치 확인
+pwd 
+Path             
+----             
+C:\work\Cdsy_E1-1
+
+# 파일 목록 확인
+Get-ChildItem -Force
+    디렉터리: C:\work\Cdsy_E1-1
+Mode                 LastWriteTime         Length Name                          
+----                 -------------         ------ ----                          
+d--h--      2026-11-03  오전 11:11                .git
+-a----      2026-11-03  오전 11:41           1314 README.md
+
+```
