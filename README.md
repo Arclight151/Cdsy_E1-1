@@ -36,6 +36,7 @@ git version 2.56.0.windows.4
 ```
 
 ## 터미널 로그
+### 기본 파일/디렉토리 조작
 ```powershell
 # 현재 위치 확인
 pwd 
@@ -43,12 +44,59 @@ Path
 ----             
 C:\work\Cdsy_E1-1
 
+# 현재 위치 이동
+C:\work\Cdsy_E1-1> cd testdir
+C:\work\Cdsy_E1-1\testdir>
+
+C:\work\Cdsy_E1-1\testdir> cd ..
+C:\work\Cdsy_E1-1>
+
 # 파일 목록 확인
 Get-ChildItem -Force
     디렉터리: C:\work\Cdsy_E1-1
-Mode                 LastWriteTime         Length Name                          
-----                 -------------         ------ ----                          
+Mode                 LastWriteTime         Length Name
 d--h--      2026-11-03  오전 11:11                .git
+----                 -------------         ------ ----
 -a----      2026-11-03  오전 11:41           1314 README.md
 
+# 디렉터리 생성
+mkdir testdir
+    디렉터리: C:\work\Cdsy_E1-1
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-03  오후 12:05                testdir
+
+# 새로운 빈 파일 생성
+New-Item -ItemType File testdir/testfile.txt 
+# linux 명령어인 touch가 작동하지 않아 windows용 명령어를 탐색, 실행
+# 메모(최종삭제): 명령어에서 function과 alias 개념 학습 기록
+    디렉터리: C:\work\Cdsy_E1-1\testdir
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2026-11-03  오후 12:34              0 testfile.txt
+
+# 파일 이동
+mv testdir/testfile.txt ./
+(실행 결과 없음, testdir에 있던 파일을 현재 작업 디렉터리로 이동)
+
+#파일 복사
+cp testfile.txt testdir
+(실행 결과 없음, testfile.txt의 사본을 testdir 내에 생성)
+
+# 파일 이름 변경
+mv testfile.txt test2.py
+(실행 결과 없음, testfile.txt를 test2.py로 이름 변경)
+
+# 이 시점에서 수동으로 test2.py에 내용 입력
+# 파일 내용 조회
+cat test2.py
+print("Hello World")
+
+# 파일 삭제
+rm test2.py
+(실행 결과 없음, test2.py 파일 삭제)
+
+# 디렉터리 삭제
+rmdir testdir -r
+(실행 결과 없음, testdir 디렉터리 삭제)
 ```
