@@ -20,7 +20,7 @@
 
 ## 실행 환경
 - OS: Windows 11
-- Terminal: VSCode Powershell
+- Terminal: VSCode Powershell 및 Git Bash
 - Docker: 
 - Git: version 2.56.0.windows.4
 ### 검사 명령어
@@ -38,6 +38,7 @@ git version 2.56.0.windows.4
 ## 터미널 로그
 ### 기본 파일/디렉토리 조작
 ```powershell
+# powershell에서 수행
 # 현재 위치 확인
 pwd 
 Path             
@@ -99,4 +100,15 @@ rm test2.py
 # 디렉터리 삭제
 rmdir testdir -r
 (실행 결과 없음, testdir 디렉터리 삭제)
+```
+
+### 권한 설정 실습
+```bash
+# git bash에서 수행
+# 권한 확인
+ls -l testfile.txt 
+-rw-r--r-- 1 david0205110511 1049089 0 11월  3 13:42 testfile.txt
+# r=read, w=write, x=execute 권한
+
+# 권한 변경
 ```
