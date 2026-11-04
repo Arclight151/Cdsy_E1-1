@@ -105,7 +105,7 @@ rmdir testdir -r
 ### 권한 설정 실습
 ```bash
 # git bash에서 수행
-# 권한 확인
+# 파일 권한 확인
 ls -l testfile.py 
 -rw-r--r-- 1 david0205110511 1049089 0 11월  3 13:42 testfile.py
 # r=read, w=write, x=execute 권한
@@ -120,7 +120,7 @@ ls -lsa testfile.py
 *Troubleshooting 1: 검증해봤을 때 권한이 변경되지 않은 것 같아 bash가 아닌 명령 프롬프트에서 재시도
 ```cmd
 # cmd
-# 권한 확인
+# 파일 권한 확인
 icacls .\testfile.py
 .\testfile.py BUILTIN\Administrators:(I)(F)
               NT AUTHORITY\SYSTEM:(I)(F)
@@ -132,8 +132,24 @@ icacls testfile.py /deny %USERNAME%:R
 처리된 파일: testfile.py
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
-# 변경 후 결과: read_denied.png 참조
+# 변경 후 결과: file_read_denied.png 참조
 
 # 작업 후 원상복구
 icacls testfile.py /reset
+```
+```cmd
+# cmd
+# 디렉터리 권한 확인
+icacls testdir
+testdir BUILTIN\Administrators:(I)(OI)(CI)(F)
+        NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
+        BUILTIN\Users:(I)(OI)(CI)(RX)
+        NT AUTHORITY\Authenticated Users:(I)(M)
+        NT AUTHORITY\Authenticated Users:(I)(OI)(CI)(IO)(M)
+
+icacls testdir /deny %USERNAME%:R
+처리된 파일: testdir
+1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
+
+# 변경 후 결과: dir_read_denied.png 참조
 ```
