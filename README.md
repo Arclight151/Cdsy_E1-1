@@ -117,7 +117,7 @@ mode of 'testfile.py' changed from 0644 (rw-r--r--) to 0777 (rwxrwxrwx)
 ls -lsa testfile.py
 1 -rw-r--r-- 1 david0205110511 1049089 20 11월  3 13:47 testfile.py
 ```
-*검증해봤을 때 권한이 변경되지 않은 것 같아 bash가 아닌 명령 프롬프트에서 재시도
+*Troubleshooting 1: 검증해봤을 때 권한이 변경되지 않은 것 같아 bash가 아닌 명령 프롬프트에서 재시도
 ```cmd
 # cmd
 # 권한 확인
@@ -133,4 +133,7 @@ icacls testfile.py /deny %USERNAME%:R
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
 # 변경 후 결과: read_denied.png 참조
+
+# 작업 후 원상복구
+icacls testfile.py /reset
 ```
