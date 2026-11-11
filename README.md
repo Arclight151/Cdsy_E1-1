@@ -344,3 +344,38 @@ daaa7e1e530e   nginx:latest   "/docker-entrypoint.…"   11 seconds ago   Up 11 
 # 바인드 마운트 성공 예제 첨부
 ```
 ![img4](./imgs/webpage_bindmount.png)
+
+### 볼륨 영속성 검증
+```powershell
+> docker volume create w1-vol 
+w1-vol
+
+> docker volume ls
+DRIVER    VOLUME NAME
+local     w1-vol
+
+> docker run -dit --name volume-test-1 -v w1-vol:/data alpine sh
+> docker exec volume-test-1 sh -c "echo hello-volume > /data/test.txt"
+> docker exec volume-test-1 cat /data/test.txt
+hello-volume #cat 결과로 입력했던 텍스트가 성공적으로 반환
+# 테스트 컨테이너 1 삭제
+> docker rm -f volume-test-1
+
+# 동일한 볼륨으로 다른 컨테이너 생성
+> docker run -dit --name volume-test-2 -v w1-vol:/data alpine sh
+> docker exec volume-test-2 cat /data/test.txt
+hello-volume #컨테이너를 삭제했으나 볼륨에 남아있던 텍스트 데이터는 유지, 반환
+
+> docker volume inspect w1-vol 
+[
+    {
+        "CreatedAt": "2026-11-11T08:33:42Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/w1-vol/_data",
+        "Name": "w1-vol",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+```
