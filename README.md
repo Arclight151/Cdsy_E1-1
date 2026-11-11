@@ -379,3 +379,24 @@ hello-volume #컨테이너를 삭제했으나 볼륨에 남아있던 텍스트 �
     }
 ]
 ```
+### Git/Github
+```bash
+git add .
+
+git status
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+
+git commit -m "커밋 메시지"
+1 file changed, 36 insertions(+), 1 deletion(-)
+
+git log
+commit [커밋id] (HEAD -> main, origin/main, origin/HEAD)
+Author: [커밋한_user_id] <[메일주소]>
+Date:   [시간정보]
+
+    [커밋메시지]
+
+git push
+```
