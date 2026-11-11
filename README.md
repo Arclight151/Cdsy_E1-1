@@ -297,7 +297,6 @@ b4bc8cb60ac1   codyw1-nginx:v1   "/docker-entrypoint.…"   13 seconds ago   Up 
 2026/11/11 07:48:43 [notice] 1#1: start worker process 52
 172.17.0.1 - - [11/Nov/2026:07:48:54 +0000] "GET / HTTP/1.1" 200 199 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36" "-"
 
-# 웹페이지 이미지
-
+# 웹페이지 이미지 하단 첨부
 ```
 ![img3](https://github.com/CodysseyGN-A/Cdsy_E1-1/blob/a27b95a917565278df0b93d79484d050a477373f/imgs/webpage_loaded_1.png)
