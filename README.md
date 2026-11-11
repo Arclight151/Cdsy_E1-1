@@ -139,6 +139,7 @@ mode of 'testfile.py' changed from 0644 (rw-r--r--) to 0777 (rwxrwxrwx)
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
 # 변경 후 결과: file_read_denied.png 참조
+![img1](./imgs/file_read_denied.png)
 
 # 작업 후 원상복구
 > icacls testfile.py /reset
@@ -158,6 +159,7 @@ testdir BUILTIN\Administrators:(I)(OI)(CI)(F)
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
 # 변경 후 결과: dir_read_denied.png 참조
+![img2](./imgs/dir_read_denied.png)
 
 # 작업 후 원상복구
 > icacls testdir /reset
@@ -272,4 +274,29 @@ exit
 > docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
 6fb9ad2f317b   ubuntu    "bash"    17 minutes ago   Up 5 minutes              ubuntu-test-2
+```
+
+### Dockerfile 기반 커스텀 이미지 제작
+```powershell
+# 소스 코드 및 Dockerfile은 /webapp 참조
+> docker build -t codyw1-nginx:v1 ./webapp
+[+] Building 6.3s (5/5) FINISHED
+(이미지 빌드 로그)
+
+> docker images
+IMAGE             ID             DISK USAGE   CONTENT SIZE   EXTRA
+codyw1-nginx:v1   d71e7ffd5688        241MB         63.9MB
+
+> docker run -d --name w1-web-test -p 8080:80 codyw1-nginx:v1
+> docker ps
+CONTAINER ID   IMAGE             COMMAND                   CREATED          STATUS          PORTS                                     NAMES
+b4bc8cb60ac1   codyw1-nginx:v1   "/docker-entrypoint.…"   13 seconds ago   Up 13 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   w1-web-test
+
+> docker logs --tail 3 w1-web-test
+2026/11/11 07:48:43 [notice] 1#1: start worker process 51
+2026/11/11 07:48:43 [notice] 1#1: start worker process 52
+172.17.0.1 - - [11/Nov/2026:07:48:54 +0000] "GET / HTTP/1.1" 200 199 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36" "-"
+
+# 웹페이지 이미지
+![img3](./imgs/webpage_loaded_1.png)
 ```
