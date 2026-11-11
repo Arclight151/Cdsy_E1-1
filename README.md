@@ -191,11 +191,85 @@ CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                 
 154c82a1e128   hello-world   "/hello"   23 minutes ago   Exited (0) 5 minutes ago             gracious_shockley
 
 # 컨테이너 로그 확인
-> docker logs --tail 5 --timestamps gracious_shockley #(마지막 )
+> docker logs --tail 5 --timestamps gracious_shockley
 2026-11-04T07:05:03.489942513Z  https://hub.docker.com/
 2026-11-04T07:05:03.489942929Z
 2026-11-04T07:05:03.489943307Z For more examples and ideas, visit:
 2026-11-04T07:05:03.489943799Z  https://docs.docker.com/get-started/
 2026-11-04T07:05:03.489944160Z
+```
 
+### ubuntu 컨테이너 실습
+```powershell
+# ubuntu 컨테이너 다운로드, 실행
+> docker run -it ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+f3f25b84a7d7: Pull complete
+edafa32f5d9e: Pull complete
+21594acc2d8b: Download complete
+Digest: sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
+Status: Downloaded newer image for ubuntu:latest
+root@d4531f023437:/#
+
+# 컨테이너 내
+root@d4531f023437:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@d4531f023437:/# pwd
+/
+root@d4531f023437:/# whoami
+root
+
+# powershell
+> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS         PORTS     NAMES
+d4531f023437   ubuntu    "bash"    4 minutes ago   Up 4 minutes             keen_torvalds
+```
+
+#### attach/exec
+```powershell
+# attach의 기능 확인
+> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
+6fb9ad2f317b   ubuntu    "bash"    3 seconds ago    Up 2 seconds              ubuntu-test-2
+> docker attach ubuntu-test-2
+```
+```bash
+root@6fb9ad2f317b:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@6fb9ad2f317b:/# pwd
+/
+root@6fb9ad2f317b:/# echo "attach test"
+attach test
+root@6fb9ad2f317b:/# exit
+exit
+```
+```powershell
+> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                      PORTS     NAMES
+6fb9ad2f317b   ubuntu    "bash"    2 minutes ago    Exited (0) 19 seconds ago             ubuntu-test-2
+```
+```powershell
+# exec의 기능 확인
+> docker start ubuntu-test-2
+ubuntu-test-2
+> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
+6fb9ad2f317b   ubuntu    "bash"    11 minutes ago   Up 8 seconds              ubuntu-test-2
+> docker exec -it ubuntu-test-2 bash
+```
+```bash
+root@6fb9ad2f317b:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@6fb9ad2f317b:/# pwd
+/
+root@6fb9ad2f317b:/# echo "exec test"
+exec test
+root@6fb9ad2f317b:/# exit
+exit
+```
+```powershell
+> docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
+6fb9ad2f317b   ubuntu    "bash"    17 minutes ago   Up 5 minutes              ubuntu-test-2
 ```
