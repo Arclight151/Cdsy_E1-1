@@ -278,7 +278,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NA
 6fb9ad2f317b   ubuntu    "bash"    17 minutes ago   Up 5 minutes              ubuntu-test-2
 ```
 
-### Dockerfile 기반 커스텀 이미지 제작
+### Dockerfile 기반 커스텀 이미지 제작 및 포트 매핑
 ```powershell
 # 소스 코드 및 Dockerfile은 /webapp 참조
 > docker build -t codyw1-nginx:v1 ./webapp
@@ -299,6 +299,48 @@ b4bc8cb60ac1   codyw1-nginx:v1   "/docker-entrypoint.…"   13 seconds ago   Up 
 2026/11/11 07:48:43 [notice] 1#1: start worker process 52
 172.17.0.1 - - [11/Nov/2026:07:48:54 +0000] "GET / HTTP/1.1" 200 199 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36" "-"
 
+> curl http://localhost:8080
+StatusCode        : 200
+StatusDescription : OK
+Content           : <!DOCTYPE html>
+                    <html lang="ko">
+                    <head>
+                      <meta charset="UTF-8">
+                      <title>Codyssey W1</title>
+                    </head>
+                    <body>
+                      <h1>Docker ì»¤ì¤í ì¹ ìë² íì¤í¸</h1>
+                      <p>by djk</p>
+                    </body>
+                    </html>
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Accept-Ranges: bytes
+                    Content-Length: 199
+                    Content-Type: text/html
+                    Date: Wed, 11 Nov 2026 08:07:28 GMT
+                    ETag: "6af41a45-c7"
+                    Last-Modified: Wed, 11 Nov 2026 0...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Accept-Ranges, bytes], [Content-Length, 199], [Content-Type, text/html]
+                    ...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 199
+
 # 웹페이지 이미지 하단 첨부
 ```
-![img3](https://github.com/CodysseyGN-A/Cdsy_E1-1/blob/a27b95a917565278df0b93d79484d050a477373f/imgs/webpage_loaded_1.png)
+![img3](./imgs/webpage_loaded_1.png)
+
+### 바인드 마운트
+```powershell
+> docker run -d --name w1-bindmount -p 8091:80 -v ${PWD}/src:/usr/share/nginx/html nginx:latest
+> docker ps
+CONTAINER ID   IMAGE          COMMAND                   CREATED          STATUS          PORTS                                     NAMES
+daaa7e1e530e   nginx:latest   "/docker-entrypoint.…"   11 seconds ago   Up 11 seconds   0.0.0.0:8091->80/tcp, [::]:8091->80/tcp   w1-bindmount
+
+# 바인드 마운트 성공 예제 첨부
+```
+![img4](./imgs/webpage_bindmount.png)
