@@ -139,8 +139,9 @@ mode of 'testfile.py' changed from 0644 (rw-r--r--) to 0777 (rwxrwxrwx)
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
 # 변경 후 결과: file_read_denied.png 참조
+```
 ![img1](./imgs/file_read_denied.png)
-
+```cmd
 # 작업 후 원상복구
 > icacls testfile.py /reset
 ```
@@ -159,8 +160,9 @@ testdir BUILTIN\Administrators:(I)(OI)(CI)(F)
 1 파일을 처리했으며 0 파일은 처리하지 못했습니다.
 
 # 변경 후 결과: dir_read_denied.png 참조
+```
 ![img2](./imgs/dir_read_denied.png)
-
+```cmd
 # 작업 후 원상복구
 > icacls testdir /reset
 ```
